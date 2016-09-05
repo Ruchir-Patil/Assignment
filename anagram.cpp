@@ -3,29 +3,22 @@
 #include<string.h>
 typedef struct linkedList{
 	char arr[100];
-	struct linkedList *next;
+	struct linkedList *next; // Linked list structure
 }list;
-struct group
+struct setarray
 {
 	int count;
-	char words[100][100];
+	char stringg[100][100]; //array set
 };
-struct temp
-{
-	int count;
-	char words[100][100];
-};
-list * sorted;
-
-
-list * newNode()
+list * sorted; 
+list * newNode() //creating a new node
 {
 	list *l1;
 l1=(list *)malloc(sizeof(list));
 l1->next=NULL;
 return l1;
 }
-void displayList(list *head, int n)
+void displayList(list *head, int n) //display list
 {
 	int i;
 	for(i=0;i<n;i++)
@@ -35,7 +28,7 @@ void displayList(list *head, int n)
 	}
 	scanf("%d",&n);
 }
-list * copyLinkedlist(list *head, int n)
+list * copyLinkedlist(list *head, int n) //copy a list to another list 
 {
 int i;
 list *HeadSorted;
@@ -52,7 +45,7 @@ list *HeadSorted;
 		return HeadSorted;	
 }
 
-list * sortedList(int n){
+list * sortedList(int n){ //sort the list
     char temp;
     int i,j,len1,len2;
     list * HeadSorted;
@@ -81,14 +74,15 @@ int main()
 {
 	list *l1,*head;
 	int n,i,j;
-	
+	int q,k,tag[100]={0},counterone=0,count=0;
+	struct setarray setone[100],settwo[100];
 	char arr[100],a[100][100],store[100][100];
 	l1=newNode();
 	head=l1;
 	printf("\n\tPlease enter number of strings to be inserted :");
 	scanf("%d",&n);
 	printf("Input");
-	for(i=0;i<n;i++)
+	for(i=0;i<n;i++) //accept all strings
 	{
 		scanf("%s",arr);
 		strcpy(l1->arr,arr);
@@ -96,8 +90,8 @@ int main()
 		l1=l1->next;
 		l1->next=NULL;
 	}
-	sorted=copyLinkedlist(head,n);
-	sorted=sortedList(n);
+	sorted=copyLinkedlist(head,n); //copy all strings for originals
+	sorted=sortedList(n); //sorting all strings
 	for(i=0;i<n;i++)
 	{
 		strcpy(a[i],sorted->arr);
@@ -112,10 +106,7 @@ int main()
 		if(head==NULL)
 			break;
 	}
-
-	int q,k,tag[100]={0},counterone=0,count=0;
-	struct group setone[100],settwo[100];			
-	while(1)
+	while(1) 
 	{
 		for(i=0 ; i<n ; i++)
 		{
@@ -128,7 +119,7 @@ int main()
 				{
 					if(tag[j]==0)
 					{
-						if(strcmp(a[i] , a[j]) == 0)
+						if(strcmp(a[i] , a[j]) == 0) //comparing sorted stings and tagging them to 0,1,2
 						{
 							tag[j]=1;
 							count++;
@@ -142,13 +133,13 @@ int main()
 					if(tag[k]==1)
 					{
 						tag[k]=2;
-						strcpy( setone[i].words[q], store[k]);
+						strcpy( setone[i].stringg[q], store[k]);
 						q++;
 					}
 				}
 			}
 		}
-		for(i=0 ; i <counterone-1 ; i++)
+		for(i=0 ; i <counterone-1 ; i++) //copying in memory
 		{
 			for(j=0 ; j <counterone-j-1 ; j++)
 			if(setone[j].count< setone[j+1].count)
@@ -159,7 +150,7 @@ int main()
 				memcpy(&setone[j + 1], &settwo[0], sizeof setone[j + 1]);
 			}
 		}
-		printf("output\n");
+		printf("output\n"); // retriving the results from array ; showing output
 		for(k=0; k<=counterone; k++ )
 		{
 			if(setone[k].count !=0)
@@ -168,7 +159,7 @@ int main()
 				printf("%d: ",setone[k].count);
 				for( q=0 ; q<=setone[k].count ; q++ )
 				{
-						printf("%s ",setone[k].words[q]);
+						printf("%s ",setone[k].stringg[q]);
 				}
 				printf("\n");	
 			}
